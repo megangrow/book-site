@@ -3,7 +3,7 @@
 </script>
 
 <template>
-<h1>Audiobooks</h1>
+<h1>My Journey</h1>
 </template>
 
 <style scoped>

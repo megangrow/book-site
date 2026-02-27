@@ -1,16 +1,19 @@
 <script setup>
 import { ref, computed } from 'vue'
 import home from './home.vue'
-import Library from './library.vue'
+import library from './library.vue'
 import audiobooks from './audiobooks.vue'
+import journey from './journey.vue'
 
 const routes = {
   '/': home,
-  '/library': Library,
-  '/audiobooks': audiobooks
+  '/library': library,
+  '/audiobooks': audiobooks,
+  '/journey': journey
 }
 
 const currentPath = ref(window.location.hash)
+const drawer = ref(false)
 
 window.addEventListener('hashchange', ()=> {
   currentPath.value = window.location.hash
@@ -22,9 +25,36 @@ const currentView = computed(() => {
 </script>
 
 <template>
-  <a href="#/">Home</a>
-  <a href="#/library">Library</a>
-  <a href="#/audiobooks">Audiobooks</a>
+  <v-app>
+    <v-navigation-drawer
+        v-model="drawer"
+        color="#FFFFFF"
+        elevation="2"
+        class="drawer-font">
+      <v-list-item prepend-icon="mdi-home" href="#/" title="Home" @click="drawer = !drawer"></v-list-item>
+      <v-list-item prepend-icon="mdi-bookshelf" href="#/library" title="My Shelf" @click="drawer = !drawer"></v-list-item>
+      <v-list-item prepend-icon="mdi-book-music" href="#/audiobooks" title="Audiobooks" @click="drawer = !drawer"></v-list-item>
+      <v-list-item prepend-icon="mdi-progress-star" href="#/journey" title="My Journey" @click="drawer = !drawer"></v-list-item>
+    </v-navigation-drawer>
 
-  <component :is="currentView"></component>
+    <v-app-bar color="white" elevation="2">
+      <v-app-bar-nav-icon color="#1a2a44" @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar-title style="font-family:'Playfair Display', serif; font-weight:700; color:#1a2a44;">
+        Shelf Life
+      </v-app-bar-title>
+    </v-app-bar>
+
+    <v-main>
+      <component :is="currentView"></component>
+    </v-main>
+
+    <v-footer color="#FFFFFF" class="text-center" elevation="1">
+      <span style="color:#1a2a44;">
+        <v-icon start>mdi-copyright</v-icon>
+        2026 Megan Grow</span>
+    </v-footer>
+  </v-app>
 </template>
+
+<style scoped>
+</style>
