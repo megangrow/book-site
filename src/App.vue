@@ -26,28 +26,35 @@ const currentView = computed(() => {
 
 <template>
   <v-app>
-    <v-navigation-drawer class="text-deep-purple-darken-3" color="purple-lighten-3"v-model="drawer">
+    <v-navigation-drawer
+        v-model="drawer"
+        color="#FFFFFF"
+        elevation="2"
+        class="drawer-font">
       <v-list-item prepend-icon="mdi-home" href="#/" title="Home" @click="drawer = !drawer"></v-list-item>
-      <v-list-item prepend-icon="mdi-bookshelf" href="#/library" title="Library" @click="drawer = !drawer"></v-list-item>
+      <v-list-item prepend-icon="mdi-bookshelf" href="#/library" title="My Shelf" @click="drawer = !drawer"></v-list-item>
       <v-list-item prepend-icon="mdi-book-music" href="#/audiobooks" title="Audiobooks" @click="drawer = !drawer"></v-list-item>
       <v-list-item prepend-icon="mdi-progress-star" href="#/journey" title="My Journey" @click="drawer = !drawer"></v-list-item>
     </v-navigation-drawer>
-    <v-app-bar class="text-deep-purple-darken-3" color="purple-lighten-3" height="100">
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-app-bar-title>Book Website</v-app-bar-title>
+
+    <v-app-bar color="white" elevation="2">
+      <v-app-bar-nav-icon color="#1a2a44" @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar-title style="font-family:'Playfair Display', serif; font-weight:700; color:#1a2a44;">
+        Shelf Life
+      </v-app-bar-title>
     </v-app-bar>
+
     <v-main>
       <component :is="currentView"></component>
     </v-main>
-    <v-footer app="true">Copyright 2026</v-footer>
+
+    <v-footer color="#FFFFFF" class="text-center" elevation="1">
+      <span style="color:#1a2a44;">
+        <v-icon start>mdi-copyright</v-icon>
+        2026 Megan Grow</span>
+    </v-footer>
   </v-app>
 </template>
 
 <style scoped>
-* {
-  font-family: "Red Hat Text", sans-serif;
-  font-optical-sizing: auto;
-  font-style: normal;
-  line-height: 1.6;
-}
 </style>
