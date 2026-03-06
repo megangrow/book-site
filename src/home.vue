@@ -128,11 +128,7 @@ const currents = [
 </template>
 
 <style scoped>
-.hero {
-  margin-top: 2.5rem;
-  margin-bottom: 2.5rem;
-  text-align: center;
-}
+
 
 .book-card {
   border-radius: 16px;

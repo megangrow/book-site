@@ -1,12 +1,12 @@
 @import './base.css';
 
-#app, body {
+#app, body, #club-card {
   font-family: 'Roboto Condensed', sans-serif; /* body text default */
   color: #1a2a44; /* navy */
   background-color: #FFFFFF; /* white page */
 }
 
-h1, h2, h3, h4, h5, h6, .v-app-bar-title, .v-list-item__title {
+h1, h2, h3, h4, h5, h6, .v-app-bar-title, .v-list-item__title, .v-card-title {
   font-family: 'Playfair Display', serif;
   color: #1a2a44;
 }
@@ -25,5 +25,16 @@ h1, h2, h3, h4, h5, h6, .v-app-bar-title, .v-list-item__title {
 
 .v-main {
   font-family: 'Roboto Condensed', sans-serif;
+  color: #1a2a44;
+}
+
+.hero {
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+#club-title {
+  font-family: 'Playfair Display', serif;
   color: #1a2a44;
 }
