@@ -1,15 +1,17 @@
 <script setup>
 import { ref, computed } from 'vue'
 import home from './home.vue'
-import library from './library.vue'
+import bookclubs from './bookclubs.vue'
 import audiobooks from './audiobooks.vue'
-import journey from './journey.vue'
+import library from './library.vue'
+import order from './order.vue'
 
 const routes = {
   '/': home,
-  '/library': library,
+  '/bookclubs': bookclubs,
   '/audiobooks': audiobooks,
-  '/journey': journey
+  '/library': library,
+  '/order': order,
 }
 
 const currentPath = ref(window.location.hash)
@@ -32,9 +34,10 @@ const currentView = computed(() => {
         elevation="2"
         class="drawer-font">
       <v-list-item prepend-icon="mdi-home" href="#/" title="Home" @click="drawer = !drawer"></v-list-item>
-      <v-list-item prepend-icon="mdi-bookshelf" href="#/library" title="My Shelf" @click="drawer = !drawer"></v-list-item>
-      <v-list-item prepend-icon="mdi-book-music" href="#/audiobooks" title="Audiobooks" @click="drawer = !drawer"></v-list-item>
-      <v-list-item prepend-icon="mdi-progress-star" href="#/journey" title="My Journey" @click="drawer = !drawer"></v-list-item>
+      <v-list-item prepend-icon="mdi-bookshelf" href="#/bookclubs" title="Book Clubs" @click="drawer = !drawer"/>
+<!--      <v-list-item prepend-icon="mdi-book-music" href="#/audiobooks" title="Audiobooks" @click="drawer = !drawer"/>-->
+      <v-list-item prepend-icon="mdi-book-multiple" href="#/library" title="My Shelf" @click="drawer = !drawer"/>
+<!--      <v-list-item prepend-icon="mdi-receipt-text-check-outline" href="#/order" title="Place an Order" @click="drawer = !drawer"/>-->
     </v-navigation-drawer>
 
     <v-app-bar color="white" elevation="2">
