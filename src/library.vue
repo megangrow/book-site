@@ -11,7 +11,7 @@ async function loadBooks() {
   error.value = ''
 
   try {
-      const response = await fetch('http://localhost:3000/library')
+      const response = await fetch("/api/library")
 
       if (!response.ok) {
         throw new Error('Failed to load books')
