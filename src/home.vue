@@ -1,14 +1,38 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
-const books = ref([])
 
-onMounted(async () => {
-const response = await fetch('http://localhost:3000/library')
-books.value = await response.json()
+const books = ref([])
+const loading = ref(true)
+const error = ref('')
+
+async function loadBooks() {
+  loading.value = true
+  error.value = ''
+
+  try {
+    const response = await fetch("/api/library")
+
+
+    if (!response.ok) {
+      throw new Error('Failed to load books')
+    }
+
+    const data = await response.json()
+    books.value = data
+    console.log('books loaded:', data)
+
+  } catch (err) {
+    error.value = err.message || 'Something went wrong while loading'
+  } finally {
+    loading.value = false
+  }
+}
+
+onMounted(() => {
+  loadBooks()
 })
 
 const highlights = computed(() => books.value.filter(b => b.highlight === 1))
-const currents = computed(() => books.value.filter(b => b.shelf === 'Reading'))
 </script>
 
 <template>
