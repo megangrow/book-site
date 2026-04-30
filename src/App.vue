@@ -2,16 +2,12 @@
 import { ref, computed } from 'vue'
 import home from './home.vue'
 import bookclubs from './bookclubs.vue'
-import audiobooks from './audiobooks.vue'
 import library from './library.vue'
-import order from './order.vue'
 
 const routes = {
   '/': home,
   '/bookclubs': bookclubs,
-  '/audiobooks': audiobooks,
   '/library': library,
-  '/order': order,
 }
 
 const currentPath = ref(window.location.hash)

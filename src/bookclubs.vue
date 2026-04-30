@@ -1,67 +1,13 @@
 <script setup>
-  import {ref} from "vue";
+  import { ref, onMounted } from "vue";
   import ClubCard from "./components/clubCard.vue";
 
-  const clubs=ref([
-    {
-      id: 1,
-      name: 'Breakfast Book Club',
-      address: 'Online',
-      hours: 'Tuesdays at 9am',
-      image: 'breakfast_club.jpg',
-      tags: ['Human Behavior', 'Habits and Productivity', 'Self Improvement'],
-      members: 34,
-      details: [
-          'Casual group',
-          'Bring coffee and/or breakfast to the call',
-      ],
-      contact: 'Megan Grow. megan@email.com'
-    },
-    {
-      id: 2,
-      name: 'SciFi',
-      address: 'Public Library: 340 Main St, Milwaukee, WI',
-      hours: 'Thursdays at 7pm',
-      image: 'scifi_club.jpg',
-      tags: ['Science Fiction', 'Outer Space', 'Dystopia'],
-      members: 63,
-      details: [
-        'Virtual participation option',
-        'New members always welcome',
-        'Themed dress-up days once a month',
-      ],
-      contact: 'Jeremy Smith. jerrysmi@mail.com'
-    },
-    {
-      id: 3,
-      name: 'History Enthusiasts',
-      address: 'Virtual only',
-      hours: 'Sundays at 12pm',
-      image: 'history_club.png',
-      tags: ['Biographies', 'History', 'Historical Fiction'],
-      members: 8,
-      details: [
-        'Major history enthusiasts only',
-        'Deep thinking and discussions',
-      ],
-      contact: 'Aaron Hunt. aahunt@email.mail.com'
-    },
-    {
-      id: 4,
-      name: 'Hopeless Romantics',
-      address: 'Indie Coffee Shop, 334 West Ln, Baraboo, WI',
-      hours: 'Saturdays at 2pm',
-      image: 'hearts_club.png',
-      tags: ['Romance', 'Romantic Comedies', 'Period Pieces'],
-      members: 27,
-      details: [
-          'Have a cup of coffee and talk about loveee',
-          'Bring a friend - new members always welcome!',
-          'Romantic books exclusively',
-      ],
-      contact: 'Jerri Manly. jerriluv@mail.net'
-    }
-  ])
+  const clubs = ref([])
+
+  onMounted(async () => {
+    const res = await fetch('/api/clubs')
+    clubs.value = await res.json()
+  })
 
   const dialogOpen = ref(false)
   const selected = ref(null)
@@ -92,7 +38,7 @@
       <p>Browse the following public clubs to find one that fits your vibe!</p>
   </div>
 
-  <v-carousel hide-delimiter-background continuous height="500">
+  <v-carousel v-if="clubs.length" hide-delimiter-background continuous height="500">
     <v-carousel-item v-for="club in clubs" :key="club.id">
       <div class="d-flex justify-center">
       <ClubCard
