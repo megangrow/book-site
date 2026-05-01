@@ -11,7 +11,7 @@ async function loadBooks() {
 
   try {
     const response = await fetch("/api/library")
-
+    // const response = await fetch('http://localhost:3000/library') // FOR TESTING
 
     if (!response.ok) {
       throw new Error('Failed to load books')
