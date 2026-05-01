@@ -9,7 +9,8 @@ const error = ref('')
 async function changeShelf(book, newShelf) {
   console.log("here!")
   try {
-    await fetch(`http://localhost:3000/library`, {
+    await fetch(`/api/library`, {
+    // await fetch(`http://localhost:3000/library`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id: book.id, shelf: newShelf })
