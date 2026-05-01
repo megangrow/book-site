@@ -6,20 +6,34 @@ const books = ref([])
 const loading = ref(true)
 const error = ref('')
 
+async function changeShelf(book, newShelf) {
+  console.log("here!")
+  try {
+    await fetch(`http://localhost:3000/library`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: book.id, shelf: newShelf })
+    })
+    book.shelf = newShelf
+
+  } catch (err) {
+    error.value = err.message
+  }
+}
+
 async function loadBooks() {
   loading.value = true
   error.value = ''
 
   try {
       const response = await fetch("/api/library")
-
+      // const response = await fetch('http://localhost:3000/library') // FOR TESTING
       if (!response.ok) {
         throw new Error('Failed to load books')
       }
 
     const data = await response.json()
     books.value = data
-    console.log('books loaded:', data)
 
   } catch (err) {
     error.value = err.message || 'Something went wrong while loading'
@@ -140,9 +154,16 @@ const TBRChunks = computed(() => chunkedBooks(books.value.filter(b => b.shelf ==
         >
           {{ chip }}
         </v-chip>
-        <v-chip class="shelfchip">
-          Shelf: {{ selectedBook.shelf }}
-        </v-chip> <br> <br>
+        <v-select
+            v-model="selectedBook.shelf"
+            :items="['Reading', 'Read', 'TBR']"
+            label="Move to shelf"
+            density="compact"
+            variant="outlined"
+            style="margin-top: 20px; margin-bottom: 16px;"
+            hide-details
+            @update:modelValue="changeShelf(selectedBook, $event)"
+        />
         {{ selectedBook.description }}
       </v-card-text>
 

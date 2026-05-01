@@ -5,7 +5,8 @@
   const clubs = ref([])
 
   onMounted(async () => {
-    const res = await fetch('/api/clubs')
+    // const res = await fetch('http://localhost:3000/clubs') // FOR TESTING
+    const res = await fetch("/api/clubs")
     clubs.value = await res.json()
   })
 
