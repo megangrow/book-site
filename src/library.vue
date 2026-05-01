@@ -32,9 +32,6 @@ async function loadBooks() {
         throw new Error('Failed to load books')
       }
 
-    const data = await response.json()
-    books.value = data
-
   } catch (err) {
     error.value = err.message || 'Something went wrong while loading'
   } finally {
@@ -204,12 +201,5 @@ const TBRChunks = computed(() => chunkedBooks(books.value.filter(b => b.shelf ==
   border-radius: 16px;    /* rounded pill shape */
   font-size: 0.8rem;      /* optional: make text slightly smaller */
 }
-.shelfchip {
-  background-color: #3a3a3a;
-  color: #fff;
-  padding: 6px 12px;
-  margin: 4px 4px 0 0;
-  border-radius: 16px;
-  font-size: 0.8rem;
-}
+
 </style>
