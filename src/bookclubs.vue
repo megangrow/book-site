@@ -1,35 +1,36 @@
 <script setup>
-  import { ref, onMounted } from "vue";
-  import ClubCard from "./components/clubCard.vue";
+import { ref, onMounted } from "vue";
+import ClubCard from "./components/clubCard.vue";
 
-  const clubs = ref([])
+const clubs = ref([])
+const path = '/api/clubs'
+// const path = 'http://localhost:3000/clubs'
 
-  onMounted(async () => {
-    // const res = await fetch('http://localhost:3000/clubs') // FOR TESTING
-    const res = await fetch("/api/clubs")
-    clubs.value = await res.json()
-  })
+onMounted(async () => {
+  const res = await fetch(path)
+  clubs.value = await res.json()
+})
 
-  const dialogOpen = ref(false)
-  const selected = ref(null)
+const dialogOpen = ref(false)
+const selected = ref(null)
 
-  const snackbarOpen = ref(false)
-  const snackbarText = ref('')
+const snackbarOpen = ref(false)
+const snackbarText = ref('')
 
-  function openDetails(location) {
-    selected.value = location
-    dialogOpen.value = true
+function openDetails(location) {
+  selected.value = location
+  dialogOpen.value = true
+}
+
+async function copyAddress(contact) {
+  try {
+    await navigator.clipboard.writeText(contact)
+    snackbarOpen.value = true
+    snackbarText.value = 'Contact information copied'
+  } catch (e) {
+    snackbarText.value = 'Could not auto-copy. Please copy manually.'
   }
-
-  async function copyAddress(contact) {
-    try {
-      await navigator.clipboard.writeText(contact)
-      snackbarOpen.value = true
-      snackbarText.value = 'Contact information copied'
-    } catch (e) {
-      snackbarText.value = 'Could not auto-copy. Please copy manually.'
-    }
-  }
+}
 </script>
 
 <template>

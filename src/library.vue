@@ -5,33 +5,20 @@ import Book from './components/book.vue'
 const books = ref([])
 const loading = ref(true)
 const error = ref('')
-
-async function changeShelf(book, newShelf) {
-  console.log("here!")
-  try {
-    await fetch(`/api/library`, {
-    // await fetch(`http://localhost:3000/library`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id: book.id, shelf: newShelf })
-    })
-    book.shelf = newShelf
-
-  } catch (err) {
-    error.value = err.message
-  }
-}
+const path = '/api/library'
+// const path = 'http://localhost:3000/library'
 
 async function loadBooks() {
   loading.value = true
   error.value = ''
 
   try {
-      const response = await fetch("/api/library")
-      // const response = await fetch('http://localhost:3000/library') // FOR TESTING
+      const response = await fetch(path)
       if (!response.ok) {
         throw new Error('Failed to load books')
       }
+      const data = await response.json()
+      books.value = data
 
   } catch (err) {
     error.value = err.message || 'Something went wrong while loading'
@@ -43,6 +30,21 @@ async function loadBooks() {
 onMounted(() => {
   loadBooks()
 })
+
+async function changeShelf(book, newShelf) {
+  console.log("here!")
+  try {
+    await fetch(path, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: book.id, shelf: newShelf })
+    })
+    book.shelf = newShelf
+
+  } catch (err) {
+    error.value = err.message
+  }
+}
 
 const dialogOpen = ref(false)
 const selectedBook = ref(null)

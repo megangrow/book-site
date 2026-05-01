@@ -4,14 +4,15 @@ import { ref, onMounted, computed } from 'vue'
 const books = ref([])
 const loading = ref(true)
 const error = ref('')
+const path = '/api/library'
+// const path = 'http://localhost:3000/library'
 
 async function loadBooks() {
   loading.value = true
   error.value = ''
 
   try {
-    const response = await fetch("/api/library")
-    // const response = await fetch('http://localhost:3000/library') // FOR TESTING
+    const response = await fetch(path)
 
     if (!response.ok) {
       throw new Error('Failed to load books')
